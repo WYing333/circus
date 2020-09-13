@@ -3,6 +3,7 @@ package circus;
 import circus.animal.Animal;
 import circus.animal.Duck;
 import circus.animal.Parrot;
+import circus.stuff.Cage;
 import circus.stuff.Cannon;
 import circus.stuff.Equipment;
 import circus.stuff.Ladder;
@@ -50,28 +51,44 @@ public class Circus {
         System.out.println(animals.length);
 //        animals[2]=new Duck("Louie");
 //        System.out.println(animals.length);
-        ArrayList<Animal> animalArrayList=new ArrayList<>(Arrays.asList(animals));
+        ArrayList<Animal> animalArrayList = new ArrayList<>(Arrays.asList(animals));
 
         animalArrayList.add(new Duck("Goose"));
         animalArrayList.add(new Parrot("Dolly"));
 
-        Duck louie =new Duck("Louie");
+        Duck louie = new Duck("Louie");
         animalArrayList.add(louie);
 
         printAnimals(animalArrayList);
-        System.out.println("Number of animals: "+animalArrayList.size() );
-        System.out.println("Index of Louie: "+animalArrayList.indexOf(louie));
+        System.out.println("Number of animals: " + animalArrayList.size());
+        System.out.println("Index of Louie: " + animalArrayList.indexOf(louie));
 
         animalArrayList.sort(Animal.AnimalNameComparator);
         printAnimals(animalArrayList);
-        System.out.println("Index of Louie: "+animalArrayList.indexOf(louie));
+        System.out.println("Index of Louie: " + animalArrayList.indexOf(louie));
         animalArrayList.remove(louie);
-        System.out.println("Index of Louie: "+animalArrayList.indexOf(louie));
+        System.out.println("Index of Louie: " + animalArrayList.indexOf(louie));
     }
 
     private static void printAnimals(ArrayList<Animal> animalArrayList) {
         for (Animal a : animalArrayList) {
             System.out.println(a);
+
+            Cage<Duck> duckCage = new Cage<>();
+            Duck duck = new Duck("Heuye");
+            duckCage.lockUp(duck);
+            Parrot parrot = new Parrot("Popper");
+            Cage<Parrot> parrotCage = new Cage<>();
+            parrotCage.lockUp(parrot);
+
+            ArrayList<Cage> cages = new ArrayList<>();
+            cages.add(duckCage);
+            cages.add(parrotCage);
+
+            for (Cage c : cages) {
+                c.release();
+            }
+
         }
     }
 }
